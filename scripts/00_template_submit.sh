@@ -11,10 +11,12 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=64G
 #SBATCH --array=1-30%15
-#SBATCH --output=slurm_logs/%x-%A-%2a.out
+#SBATCH --output=</PATH/TO/>/slurm_logs/%x-%A-%2a.out
 
 ## change directory
-cd /sc-projects/sc-proj-computational-medicine/people/Carl/projects/...
+
+PROJECT_DIR='</PATH/TO/PROJECT/>'
+cd $PROJECT_DIRE
 
 ## Use Array Index to select features
 echo "[LOG] Array Job ID: $SLURM_ARRAY_JOB_ID"
@@ -33,14 +35,14 @@ printf -v date '%(%Y-%m-%d %H:%M:%S)T\n' -1
 echo "[LOG] Starting script at: $date"
 
 ## This is the container to be used
-R_CONTAINER='/sc-projects/sc-proj-computational-medicine/programs/all-inclusive-rstudio-apptainer/sif/all_inclusive_rstudio_4.3.1.sif'
+R_CONTAINER='</PATH/TO/>/all-inclusive-rstudio-apptainer/sif/all_inclusive_rstudio_4.3.1.sif'
 
 # This is the script that is executed
 # Get with rstudioapi::getSourceEditorContext()$path
-R_SCRIPT='/sc-projects/sc-proj-computational-medicine/people/PATH/TO/SCRIPT.R'
+R_SCRIPT='/PATH/TO/SCRIPT.R'
 
 # Enter all directories you need, simply in a comma-separated list
-BIND_DIR="/sc-projects/sc-proj-computational-medicine/,/sc-resources/"
+BIND_DIR="</DIR/TO/MOUNT/1/>,</DIR/TO/MOUNT/2>"
 
 ## The container 
 singularity exec \
