@@ -1,0 +1,116 @@
+---
+title: "My analysis"
+date: today
+highlight: pygments
+format:
+  html:
+    theme: zephyr
+    mainfont: Open Sans
+    monofont: DroidSansM Nerd Font Mono
+    fontsize: 1.3em
+    df-print: kable
+    fig-width: 8
+    fig-height: 6
+    code-fold: true
+    code-tools: true
+    code-overflow: wrap
+    code-summary: "Show the code"
+    standalone: true
+    embed-resources: true
+output:
+  html_document:
+  code_download: true
+toc: true  
+toc-depth: 3
+number-sections: true
+toc-float:
+  smooth-scroll: true
+execute:
+  include: true
+  eval: true
+  echo: true
+  warning: false
+editor: source
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| echo: true
+#| include: false
+
+#+ load.packages, include=F
+for (i in c(
+  "data.table",
+  "magrittr",
+  "here",
+  "ggplot2",
+  "ggthemes",
+  "glue",
+  "fs"
+  )
+  ) {
+  suppressPackageStartupMessages(
+    library(i, character.only = TRUE
+    ))
+  }
+
+checkForUpdates <- FALSE
+if (checkForUpdates) {
+  
+  # set a more recent R snapshot as source repo
+  r = getOption("repos")
+  r["CRAN"] =  "https://cran.uni-muenster.de/" 
+  options(repos = r)
+  rm(r)
+  
+  # Check unsuccessful updates packages
+  old.packages()
+
+  # Update packages to that snapshot
+  update.packages(
+    lib.loc = .libPaths()[1],
+    ask = FALSE,
+    checkBuilt = TRUE
+  )
+}
+
+# When within the Charite network or VPN, proxy settings need to be adapted
+chariteVPN <- TRUE 
+if (chariteVPN) {
+    Sys.setenv(https_proxy="http://proxy.charite.de:8080")
+    Sys.setenv(http_proxy="http://proxy.charite.de:8080")
+    Sys.setenv(ftp_proxy="http://proxy.charite.de:8080")
+}
+
+# ggplot theme
+ggplot2::theme_set(
+  theme_tufte(base_size = 14) +
+    theme(panel.background = element_rect(colour = "grey35"))
+)
+
+# Knitr should use the project root and not the script location as root
+# base.dir refers to the plot location, that should remain with the script
+knitr::opts_knit$set(
+  root.dir = here()
+)
+
+# Give data.table enough threads
+writeLines(paste0("Threads available: ", parallel::detectCores()))
+writeLines(paste0("Threads given to data.table: ", parallel::detectCores() / 2))
+setDTthreads(parallel::detectCores() / 2)
+
+# Option setup for
+options(prType = 'html')
+options(knitr.table.format = "html")
+options(grType = 'base')
+```
+
+# Introduction
+
+# Session Info
+
+```{r}
+sessioninfo::session_info()
+```
+
