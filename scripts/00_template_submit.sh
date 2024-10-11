@@ -11,12 +11,12 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=64G
 #SBATCH --array=1-30%15
-#SBATCH --output=</PATH/TO/>/slurm_logs/%x-%A-%2a.out
+#SBATCH --output=</PATH/TO/>slurm_logs/%x-%A-%2a.out
 
 ## change directory
 
 PROJECT_DIR='</PATH/TO/PROJECT/>'
-cd $PROJECT_DIRE
+cd $PROJECT_DIR
 
 ## Use Array Index to select features
 echo "[LOG] Array Job ID: $SLURM_ARRAY_JOB_ID"
@@ -28,7 +28,6 @@ echo "[LOG] Job ID: $SLURM_ARRAY_TASK_ID"
 input="$(awk -v var=$SLURM_ARRAY_TASK_ID -F ',' 'NR == var+1 {print $1}' .../MASTER_FILE.csv)"
 output="$(awk -v var=$SLURM_ARRAY_TASK_ID -F ',' 'NR == var+1 {print $2}' .../MASTER_FILE.csv)"
 
-
 ## Do some logging
 echo "[LOG] Running script with ${input} as input and ${output} as output"
 printf -v date '%(%Y-%m-%d %H:%M:%S)T\n' -1
@@ -39,7 +38,7 @@ R_CONTAINER='</PATH/TO/>/all-inclusive-rstudio-apptainer/sif/all_inclusive_rstud
 
 # This is the script that is executed
 # Get with rstudioapi::getSourceEditorContext()$path
-R_SCRIPT='/PATH/TO/SCRIPT.R'
+R_SCRIPT='</PATH/TO/>SCRIPT.R'
 
 # Enter all directories you need, simply in a comma-separated list
 BIND_DIR="</DIR/TO/MOUNT/1/>,</DIR/TO/MOUNT/2>"
