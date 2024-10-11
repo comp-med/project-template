@@ -25,8 +25,8 @@ echo "[LOG] Job ID: $SLURM_JOB_ID"
 echo "[LOG] Node ID: $SLURM_NODEID"
 echo "[LOG] Node List: $SLURM_NODELIST"
 echo "[LOG] Job ID: $SLURM_ARRAY_TASK_ID"
-input="$(awk -v var=$SLURM_ARRAY_TASK_ID -F ',' 'NR == var+1 {print $1}' .../MASTER_FILE.csv)"
-output="$(awk -v var=$SLURM_ARRAY_TASK_ID -F ',' 'NR == var+1 {print $2}' .../MASTER_FILE.csv)"
+input="$(awk -v var=$SLURM_ARRAY_TASK_ID -F ',' 'NR == var+1 {print $1}' </PATH/TO/>MASTER_FILE.csv)"
+output="$(awk -v var=$SLURM_ARRAY_TASK_ID -F ',' 'NR == var+1 {print $2}' </PATH/TO/>MASTER_FILE.csv)"
 
 ## Do some logging
 echo "[LOG] Running script with ${input} as input and ${output} as output"
