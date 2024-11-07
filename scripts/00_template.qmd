@@ -86,7 +86,9 @@ if (chariteVPN) {
 # ggplot theme
 ggplot2::theme_set(
   theme_tufte(base_size = 14) +
-    theme(panel.background = element_rect(colour = "grey35"))
+    theme(
+	panel.background = element_rect(colour = "white", fill = "white")
+    )
 )
 
 # Knitr should use the project root and not the script location as root
