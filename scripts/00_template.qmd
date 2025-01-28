@@ -85,9 +85,9 @@ if (chariteVPN) {
 
 # ggplot theme
 ggplot2::theme_set(
-  theme_tufte(base_size = 14) +
+  theme_tufte(base_size = 14, base_family = "sans") +
     theme(
-	panel.background = element_rect(colour = "white", fill = "white")
+	panel.background = element_rect(colour = "black", fill = "white")
     )
 )
 
